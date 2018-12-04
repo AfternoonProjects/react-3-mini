@@ -30,6 +30,14 @@ class App extends Component {
 
   getVehicles() {
     // axios (GET)
+    axios.get("https://joes-autos.herokuapp.com/api/vehicles")
+    .then(response => {
+      this.setState( { vehiclesToDisplay: response.data } )
+      // console.log(response);
+    })
+    .catch(error => {
+      toast.error("Error Bummer!")
+    })
     // setState with response -> vehiclesToDisplay
   }
 
@@ -59,6 +67,11 @@ class App extends Component {
 
   updatePrice(priceChange, id) {
     // axios (PUT)
+    axios.put(`https://joes-autos.herokuapp.com/api/vehicles/{id}/{priceChange}`)
+    .then( results => {
+      toast.success("Successfully updated price.");
+      this.setState( {vehiclesToDisplay: results.data.vehicles});
+    }).catch( () => toast.error("Failed at updating price"));
     // setState with response -> vehiclesToDisplay
   }
 
